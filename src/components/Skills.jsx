@@ -63,10 +63,9 @@ const Skills = ({ id }) => {
   ];
 
   const technologies = [
-    'Cisco Packet Tracer', 'SD-WAN (Viptela)', 'AWS', 'Firebase',
+    'Cisco Packet Tracer', 'SD-WAN (Viptela)', 'AWS', 
     'Linux', 'Python', 'Pandas', 'NumPy', 'TensorFlow',
     'Docker', 'Git & GitHub', 'CI/CD', 'Streamlit',
-    'Tailwind CSS', 'React.js', 'Framer Motion'
   ];
 
   return (
