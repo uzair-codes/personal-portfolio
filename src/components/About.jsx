@@ -83,6 +83,7 @@ const About = ({ id }) => {
                     muted
                     loop
                     playsInline
+                    controls
                     onError={() => setVideoError(true)}
                     className="relative z-10 w-full h-full object-cover rounded-xl"
                   />
