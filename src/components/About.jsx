@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Pause, Play } from 'lucide-react';
@@ -11,6 +11,8 @@ const About = ({ id }) => {
   });
 
   const [isPlaying, setIsPlaying] = useState(true);
+  const [videoError, setVideoError] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     if (inView) {
@@ -62,7 +64,7 @@ const About = ({ id }) => {
         </motion.div>
 
         <div className="mt-16 grid md:grid-cols-5 gap-8 items-center">
-          {/* 🔷 Video with same style as image */}
+          {/* 🔷 Video or Fallback Image */}
           <motion.div
             variants={variants}
             initial="hidden"
@@ -71,32 +73,44 @@ const About = ({ id }) => {
           >
             <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-xl overflow-hidden shadow-xl transition-transform duration-500 hover:scale-105">
               <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 blur-2xl animate-pulse"></div>
-              
-              <video
-                src="/asserts/my-avatar.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                controls={false}
-                className="relative z-10 w-full h-full object-cover rounded-xl"
-                ref={(video) => {
-                  if (video) {
-                    if (isPlaying) {
-                      video.play().catch(() => {});
-                    } else {
-                      video.pause();
-                    }
-                  }
-                }}
-              />
-              
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="absolute top-2 right-2 z-20 p-1 bg-white dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-200 hover:bg-blue-600 hover:text-white transition-colors"
-              >
-                {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-              </button>
+
+              {!videoError ? (
+                <>
+                  <video
+                    ref={videoRef}
+                    src="/asserts/my-avatar.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    onError={() => setVideoError(true)}
+                    className="relative z-10 w-full h-full object-cover rounded-xl"
+                  />
+                  <button
+                    onClick={() => {
+                      const video = videoRef.current;
+                      if (video) {
+                        if (isPlaying) {
+                          video.pause();
+                          setIsPlaying(false);
+                        } else {
+                          video.play().catch(() => {});
+                          setIsPlaying(true);
+                        }
+                      }
+                    }}
+                    className="absolute top-2 right-2 z-20 p-1 bg-white dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-200 hover:bg-blue-600 hover:text-white transition-colors"
+                  >
+                    {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+                  </button>
+                </>
+              ) : (
+                <img
+                  src="/asserts/me2.png"
+                  alt="Syed Uzair"
+                  className="relative z-10 w-full h-full object-cover rounded-xl"
+                />
+              )}
             </div>
           </motion.div>
 
