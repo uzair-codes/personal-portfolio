@@ -3,7 +3,7 @@
 This project is a modern, responsive personal portfolio built with a lightweight, maintainable,
 and scalable tech stack. Below is a detailed breakdown of the technologies and tools used.
 
-Check it out live 👉 [[https://syed-uzair-shah-vercel-site.vercel.app](https://syed-uzair-shah.vercel.app/)]
+Check it out live 👉 [[https://syed-uzair-shah.vercel.app](https://syed-uzair-shah.vercel.app/)]
 
 ---
 
