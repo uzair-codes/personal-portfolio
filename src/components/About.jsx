@@ -1,23 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Pause, Play } from 'lucide-react';
+import { Pause, Play, Volume2, VolumeX } from 'lucide-react';
 
 const About = ({ id }) => {
   const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
+  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true });
 
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
   const [videoError, setVideoError] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
-    if (inView) {
-      controls.start('visible');
-    }
+    if (inView) controls.start('visible');
   }, [controls, inView]);
 
   const variants = {
@@ -25,20 +21,32 @@ const About = ({ id }) => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.2,
-      },
+      transition: { duration: 0.6, staggerChildren: 0.2 },
     },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      video.play();
+      setIsPlaying(true);
+    } else {
+      video.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const toggleMute = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
   };
 
   return (
@@ -78,32 +86,30 @@ const About = ({ id }) => {
                 <>
                   <video
                     ref={videoRef}
-                    src="/asserts/my-avatar.mp4"
+                    src="/asserts/my-anime-avatar.mp4"
                     autoPlay
                     muted
                     loop
                     playsInline
-                    controls
                     onError={() => setVideoError(true)}
                     className="relative z-10 w-full h-full object-cover rounded-xl"
                   />
-                  <button
-                    onClick={() => {
-                      const video = videoRef.current;
-                      if (video) {
-                        if (isPlaying) {
-                          video.pause();
-                          setIsPlaying(false);
-                        } else {
-                          video.play().catch(() => {});
-                          setIsPlaying(true);
-                        }
-                      }
-                    }}
-                    className="absolute top-2 right-2 z-20 p-1 bg-white dark:bg-gray-800 rounded-full text-gray-700 dark:text-gray-200 hover:bg-blue-600 hover:text-white transition-colors"
-                  >
-                    {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-                  </button>
+
+                  {/* Controls */}
+                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-4 z-20 bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-full shadow backdrop-blur">
+                    <button
+                      onClick={togglePlay}
+                      className="text-gray-800 dark:text-gray-200 hover:text-blue-600"
+                    >
+                      {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+                    </button>
+                    <button
+                      onClick={toggleMute}
+                      className="text-gray-800 dark:text-gray-200 hover:text-purple-600"
+                    >
+                      {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                    </button>
+                  </div>
                 </>
               ) : (
                 <img
