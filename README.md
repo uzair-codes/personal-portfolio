@@ -1,9 +1,10 @@
 # 💼 Personal Portfolio – Tech Stack Overview
 
-This project is a modern, responsive personal portfolio built with a lightweight, maintainable, 
+This project is a modern, responsive personal portfolio built with a lightweight, maintainable,
 and scalable tech stack. Below is a detailed breakdown of the technologies and tools used.
 
 Check it out live 👉 [[https://your-vercel-site.vercel.app](https://syed-uzair-shah.vercel.app/)]
+
 ---
 
 ## 🧱 Languages & Syntax
