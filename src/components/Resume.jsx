@@ -78,7 +78,7 @@ const Resume = ({ id }) => {
           {/* Download Button with gradient and grow effect */}
           <motion.div variants={itemVariants} className="mt-8">
             <a
-              href="/resume.pdf"
+              href="/asserts/my-resume.pdf"
               download="Uzair-Resume.pdf"
               className="inline-flex items-center px-6 py-3 rounded-full text-white font-medium bg-gradient-to-r from-blue-500 to-purple-600 hover:from-purple-600 hover:to-blue-500 transition-all duration-300 shadow-lg transform hover:scale-105"
             >
