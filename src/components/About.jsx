@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Pause, Play } from 'lucide-react';
 
