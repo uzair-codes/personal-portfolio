@@ -41,7 +41,7 @@ const Hero = ({ id }) => {
           transition={{ delay: 0.8 }}
           className="mt-6 text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto"
         >
-          I’m passionate about leveraging cloud technologies and artificial intelligence to solve real-world problems. Let’s connect and build something innovative together.
+          I blend engineering precision with a passion for DevOps and Artificial Intelligence—crafting scalable, intelligent solutions that power the future. Whether it's automating systems or building smart models, I thrive at the intersection of innovation and impact. Let’s collaborate to bring ideas to life through technology.
         </motion.p>
 
         {/* Call to Action Buttons */}
