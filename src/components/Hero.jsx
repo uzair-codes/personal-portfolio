@@ -66,13 +66,13 @@ const Hero = ({ id }) => {
         </motion.div>
       </div>
 
-      {/* Animated Down Arrow */}
+      {/* Animated Down Arrow (Shifted Higher with bottom-28) */}
       <motion.a
         href="#about"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ delay: 1.5, repeat: Infinity, duration: 2 }}
-        className="absolute bottom-16 text-blue-600 dark:text-blue-400 hover:text-purple-600 transition-colors"
+        className="absolute bottom-28 text-blue-600 dark:text-blue-400 hover:text-purple-600 transition-colors"
         aria-label="Scroll to About section"
       >
         <ChevronDown size={32} />
