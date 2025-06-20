@@ -1,16 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Pause, Play, Volume2, VolumeX } from 'lucide-react';
 
 const About = ({ id }) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true });
-
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
-  const [videoError, setVideoError] = useState(false);
-  const videoRef = useRef(null);
 
   useEffect(() => {
     if (inView) controls.start('visible');
@@ -28,25 +22,6 @@ const About = ({ id }) => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (video.paused) {
-      video.play();
-      setIsPlaying(true);
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
-  };
-
-  const toggleMute = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = !video.muted;
-    setIsMuted(video.muted);
   };
 
   return (
@@ -72,52 +47,20 @@ const About = ({ id }) => {
         </motion.div>
 
         <div className="mt-16 grid md:grid-cols-5 gap-8 items-center">
-          {/* 🔷 Video or Fallback Image */}
+          {/* 🔷 Image with glow effect from Hero */}
           <motion.div
             variants={variants}
             initial="hidden"
             animate={controls}
             className="md:col-span-2 flex justify-center"
           >
-            <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-xl overflow-hidden shadow-xl transition-transform duration-500 hover:scale-105">
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 blur-2xl animate-pulse"></div>
-
-              {!videoError ? (
-                <>
-                  <video
-                    ref={videoRef}
-                    src="/asserts/my-anime-avatar.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    onError={() => setVideoError(true)}
-                    className="relative z-10 w-full h-full object-cover rounded-xl"
-                  />
-
-                  {/* Controls */}
-                  <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-4 z-20 bg-white/80 dark:bg-gray-800/80 px-4 py-2 rounded-full shadow backdrop-blur">
-                    <button
-                      onClick={togglePlay}
-                      className="text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                    >
-                      {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-                    </button>
-                    <button
-                      onClick={toggleMute}
-                      className="text-gray-800 dark:text-gray-200 hover:text-purple-600"
-                    >
-                      {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <img
-                  src="/asserts/me2.png"
-                  alt="Syed Uzair"
-                  className="relative z-10 w-full h-full object-cover rounded-xl"
-                />
-              )}
+            <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden shadow-xl transition-transform duration-500 hover:scale-105">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 opacity-20 blur-2xl animate-pulse"></div>
+              <img
+                src="/asserts/me.jpg"
+                alt="Uzair Niaz"
+                className="relative z-10 w-full h-full object-cover rounded-full"
+              />
             </div>
           </motion.div>
 
