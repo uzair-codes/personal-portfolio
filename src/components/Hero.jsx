@@ -32,7 +32,7 @@ const Hero = ({ id }) => {
           transition={{ delay: 0.6 }}
           className="mt-4 text-xl md:text-2xl font-medium text-gray-600 dark:text-gray-300"
         >
-          Electrical Engineering Graduate | DevOps & AI Enthusiast
+          Electrical Communication Engineering | DevOps Engineer | AI Applications Developer
         </motion.h3>
 
         <motion.p 
