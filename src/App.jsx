@@ -36,6 +36,8 @@ function App() {
       const navbarHeight = 64; // Matches h-16 (4rem)
       const offsetTop = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
       
+      setActiveSection(id);
+      
       if (menuOpen) {
         // For mobile menu, close menu first, then scroll after a short delay
         setMenuOpen(false);
@@ -52,7 +54,6 @@ function App() {
           top: offsetTop,
           behavior: 'smooth',
         });
-        setActiveSection(id);
       }
     }
   };
