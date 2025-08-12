@@ -15,3 +15,10 @@
 .animate-blink {
   animation: blink 1s step-start infinite;
 }
+
+html {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
