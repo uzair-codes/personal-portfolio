@@ -1,7 +1,6 @@
-// App.jsx (from previous response, with ThemeToggle integrated)
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Sun, Moon, Menu, X } from 'lucide-react';
 
 import SplashScreen from './components/SplashScreen';
 import Hero from './components/Hero';
@@ -12,7 +11,8 @@ import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Blog from './components/Blog';
 import Footer from './components/Footer';
-import ThemeToggle from './ThemeToggle'; // Import the new component
+import ThemeToggle from "./components/ThemeToggle";
+
 
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
@@ -43,14 +43,16 @@ function App() {
       setActiveSection(id);
       
       if (menuOpen) {
+        // For mobile menu, close menu first, then scroll after a short delay
         setMenuOpen(false);
         setTimeout(() => {
           window.scrollTo({
             top: offsetTop,
             behavior: 'smooth',
           });
-        }, 100);
+        }, 100); // Short delay to allow menu exit animation
       } else {
+        // For desktop or direct clicks, scroll immediately
         window.scrollTo({
           top: offsetTop,
           behavior: 'smooth',
@@ -67,7 +69,7 @@ function App() {
       setScrollProgress(progress);
       setIsScrolled(currentScroll > 10);
 
-      const navbarHeight = 64;
+      const navbarHeight = 64; // Matches h-16 (4rem)
       const sections = ['hero', 'about', 'skills', 'projects', 'resume', 'blog', 'contact'];
       let inViewSection = null;
       for (const section of sections) {
@@ -93,7 +95,7 @@ function App() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll();
+    handleScroll(); // Call initially to set correct active section on mount
     return () => window.removeEventListener('scroll', handleScroll);
   }, [activeSection, targetSection]);
 
@@ -184,7 +186,14 @@ function App() {
                 </div>
 
                 <div className="flex items-center">
-                  <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                  <ThemeToggle theme={theme} setTheme={setTheme} />
+                  {/* <button
+                    onClick={toggleTheme}
+                    className="p-2 rounded-full bg-secondary-bg dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300"
+                    aria-label="Toggle theme"
+                  >
+                    {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+                  </button> */}
 
                   <div className="ml-4 md:hidden">
                     <button
