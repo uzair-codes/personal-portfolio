@@ -16,7 +16,29 @@
   animation: blink 1s step-start infinite;
 }
 
-html, body {
-  transition: background-color 0.5s ease, color 0.5s ease;
+/* index.css (append) */
+
+/* Smooth color transitions site-wide */
+html, body, #root {
+  transition: background-color 0.38s ease, color 0.38s ease;
 }
+
+/* The overlay uses clip-path: circle(var(--r) at var(--cx) var(--cy))
+   We animate the CSS variable --r via Framer Motion for a performant animation.
+*/
+.theme-circle-overlay > div {
+  /* paint with the desired background color (target theme color) */
+  background: var(--bg, #0f172a);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  /* the magic: clip according to circle radius and center */
+  clip-path: circle(var(--r, 0px) at var(--cx, 50%) var(--cy, 50%));
+  -webkit-clip-path: circle(var(--r, 0px) at var(--cx, 50%) var(--cy, 50%));
+  will-change: clip-path;
+  transition: none; /* Framer Motion drives animation */
+  z-index: 1;
+}
+
 

@@ -186,7 +186,7 @@ function App() {
                 </div>
 
                 <div className="flex items-center">
-                  <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+                  <ThemeToggle theme={theme} setTheme={(t) => setTheme(t)} />
                   {/* <button
                     onClick={toggleTheme}
                     className="p-2 rounded-full bg-secondary-bg dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300"
