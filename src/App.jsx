@@ -16,6 +16,7 @@ function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [targetSection, setTargetSection] = useState(null);
   const [isSplashDone, setIsSplashDone] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -36,6 +37,7 @@ function App() {
       const navbarHeight = 64; // Matches h-16 (4rem)
       const offsetTop = el.getBoundingClientRect().top + window.scrollY - navbarHeight;
       
+      setTargetSection(id);
       setActiveSection(id);
       
       if (menuOpen) {
@@ -46,7 +48,6 @@ function App() {
             top: offsetTop,
             behavior: 'smooth',
           });
-          setActiveSection(id);
         }, 100); // Short delay to allow menu exit animation
       } else {
         // For desktop or direct clicks, scroll immediately
@@ -68,21 +69,33 @@ function App() {
 
       const navbarHeight = 64; // Matches h-16 (4rem)
       const sections = ['hero', 'about', 'skills', 'projects', 'resume', 'blog', 'contact'];
+      let inViewSection = null;
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= navbarHeight + 100 && rect.bottom >= navbarHeight) {
-            setActiveSection(section);
+            inViewSection = section;
             break;
           }
+        }
+      }
+
+      if (inViewSection) {
+        const nextActive = targetSection || inViewSection;
+        if (activeSection !== nextActive) {
+          setActiveSection(nextActive);
+        }
+        if (targetSection && inViewSection === targetSection) {
+          setTargetSection(null);
         }
       }
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Call initially to set correct active section on mount
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [activeSection, targetSection]);
 
   return (
     <>
@@ -161,9 +174,9 @@ function App() {
                       onClick={() => scrollToSection(section)}
                       className={`relative text-sm font-medium capitalize transition-colors duration-300 ${
                         activeSection === section
-                          ? 'nav-link-gradient'
-                          : 'text-primary-text dark:text-gray-300'
-                      } after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-primary-gradient-from after:to-primary-gradient-to after:transition-all after:duration-300 hover:nav-link-gradient hover:after:w-full`}
+                          ? 'nav-link-gradient after:w-full'
+                          : 'text-primary-text dark:text-gray-300 after:w-0'
+                      } after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-gradient-to-r after:from-primary-gradient-from after:to-primary-gradient-to after:transition-all after:duration-300 hover:nav-link-gradient hover:after:w-full`}
                     >
                       {section === 'hero' ? 'Home' : section}
                     </button>
