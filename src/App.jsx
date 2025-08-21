@@ -11,8 +11,6 @@ import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Blog from './components/Blog';
 import Footer from './components/Footer';
-import ThemeToggle from "./components/ThemeToggle";
-
 
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
@@ -186,14 +184,13 @@ function App() {
                 </div>
 
                 <div className="flex items-center">
-                  <ThemeToggle theme={theme} setTheme={setTheme} />
-                  {/* <button
+                  <button
                     onClick={toggleTheme}
                     className="p-2 rounded-full bg-secondary-bg dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300"
                     aria-label="Toggle theme"
                   >
                     {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-                  </button> */}
+                  </button>
 
                   <div className="ml-4 md:hidden">
                     <button
